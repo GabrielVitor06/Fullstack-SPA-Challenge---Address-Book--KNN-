@@ -1,5 +1,5 @@
 <template>
-  <v-form @submit.prevent="handleSubmit">
+  <v-form @submit.prevent="handleSubmit" ref="formRef">
     <v-text-field v-model="contact.name" label="Nome" required />
     <v-text-field v-model="contact.email" label="Email" required />
     <v-text-field v-model="contact.phone" label="Telefone" required />
@@ -8,6 +8,7 @@
       label="CEP"
       @blur="fetchAddress"
       required
+      maxlength="8"
     />
 
     <v-text-field
@@ -19,7 +20,10 @@
     <v-text-field v-model="contact.address.cidade" label="Cidade" disabled />
     <v-text-field v-model="contact.address.estado" label="Estado" disabled />
 
-    <v-btn color="primary" type="submit">Salvar</v-btn>
+    <v-row justify="space-between" class="mt-4">
+      <v-btn text @click="$emit('cancel')">Cancelar</v-btn>
+      <v-btn color="primary" type="submit">Salvar</v-btn>
+    </v-row>
   </v-form>
 </template>
 
@@ -79,7 +83,13 @@ export default Vue.extend({
       if (this.contact.cep?.length === 8) {
         try {
           const { data } = await axios.get(`/cep/${this.contact.cep}`);
-          this.contact = data;
+          this.contact.address = {
+            logradouro: data.logradouro,
+            bairro: data.bairro,
+            cidade: data.cidade,
+            estado: data.estado,
+            cep: this.contact.cep,
+          };
         } catch {
           alert("CEP inválido!");
         }
@@ -92,7 +102,7 @@ export default Vue.extend({
         } else {
           await axios.post("/contacts", this.contact);
         }
-        this.$router.push("/contacts");
+        this.$emit("saved", this.contact);
       } catch {
         alert("Erro ao salvar contato.");
       }

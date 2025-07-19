@@ -15,7 +15,6 @@ async def get_address_from_cep(cep: str) -> dict:
     if "erro" in data:
         raise HTTPException(status_code=422, detail="CEP inválido ou não encontrado")
 
-    # Retorna só os campos que queremos
     return {
         "logradouro": data.get("logradouro", ""),
         "bairro": data.get("bairro", ""),
