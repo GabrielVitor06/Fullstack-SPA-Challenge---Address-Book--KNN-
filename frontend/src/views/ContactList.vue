@@ -27,7 +27,6 @@ export default defineComponent({
     ...mapGetters("contacts", ["contacts"]),
   },
   created() {
-    // Força o TypeScript a entender que isso será definido em runtime
     (this as any).fetchContacts();
   },
   methods: {
