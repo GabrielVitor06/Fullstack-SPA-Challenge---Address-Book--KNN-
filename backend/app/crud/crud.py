@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, update, delete
-from app.models import Contact
+from app.models.models import Contact
 
 async def get_contacts(session: AsyncSession, skip: int = 0, limit: int = 10):
     result = await session.execute(select(Contact).offset(skip).limit(limit))

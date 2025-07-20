@@ -3,7 +3,7 @@ import axios from "axios";
 import { contact } from "@/Interfaces/Contact";
 
 const api = axios.create({
-  baseURL: "http://127.0.0.1:8000",
+  baseURL: "http://127.0.0.1:8000/contacts",
 });
 
 interface State {
@@ -22,8 +22,12 @@ const contacts: Module<State, unknown> = {
   },
   actions: {
     async fetchContacts({ commit }) {
-      const { data } = await api.get("/contacts/");
+      const { data } = await api.get("/contacts");
       commit("setContacts", data);
+    },
+    async fetchContact(_, id: number) {
+      const { data } = await api.get(`/contacts/${id}`);
+      return data;
     },
     async createContact(_, contact: contact) {
       await api.post("/contacts", contact);

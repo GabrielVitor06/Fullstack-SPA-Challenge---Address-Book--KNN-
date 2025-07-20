@@ -1,5 +1,6 @@
 import asyncio
-from app import crud, database
+from app.crud import crud
+from app.core import database
 
 async def main():
     async with database.async_session() as session:

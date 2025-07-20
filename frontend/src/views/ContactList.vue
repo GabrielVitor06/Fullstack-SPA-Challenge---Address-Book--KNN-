@@ -13,49 +13,51 @@
       </v-btn>
     </v-row>
 
-    <v-row v-if="showForm" class="mb-6">
-      <v-col cols="12">
-        <ContactForm
-          :contactId="editingContactId"
-          @saved="onContactSaved"
-          @cancel="showForm = false"
-        />
-      </v-col>
-    </v-row>
-
-    <v-row v-else-if="filteredContacts.length > 0">
+    <v-row v-if="filteredContacts.length > 0" class="mt-4">
       <v-col cols="12" v-for="contact in filteredContacts" :key="contact.id">
-        <ContactCard :Contact="contact" />
+        <ContactCard
+          :contact="contact"
+          @deleted="fetchContacts"
+          @edit="openEditContactForm"
+        />
       </v-col>
     </v-row>
 
     <v-row v-else justify="center">
       <EmptyContacts />
     </v-row>
+
+    <ContactForm
+      :value="dialogVisible"
+      :contactId="editingContactId"
+      @input="dialogVisible = $event"
+      @saved="onContactSaved"
+    />
   </v-container>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import Vue from "vue";
 import ContactCard from "@/components/ContactCard.vue";
 import EmptyContacts from "@/components/EmptyContacts.vue";
 import ContactForm from "@/components/ContactForm.vue";
 import { contact } from "@/Interfaces/Contact";
-import axios from "axios";
 
-export default defineComponent({
+export default Vue.extend({
   components: { ContactCard, EmptyContacts, ContactForm },
   data() {
     return {
       search: "",
-      showForm: false,
+      dialogVisible: false,
       editingContactId: null as string | null,
-      contactsList: [] as contact[],
     };
   },
   computed: {
+    contacts(): contact[] {
+      return this.$store.getters["contacts/contacts"];
+    },
     filteredContacts(): contact[] {
-      return this.contactsList.filter((contact) =>
+      return this.contacts.filter((contact: contact) =>
         contact.name.toLowerCase().includes(this.search.toLowerCase())
       );
     },
@@ -66,18 +68,21 @@ export default defineComponent({
   methods: {
     async fetchContacts() {
       try {
-        const { data } = await axios.get("/contacts");
-        this.contactsList = data;
+        await this.$store.dispatch("contacts/fetchContacts");
       } catch (error) {
         alert("Erro ao carregar contatos");
       }
     },
     openNewContactForm() {
       this.editingContactId = null;
-      this.showForm = true;
+      this.dialogVisible = true;
+    },
+    openEditContactForm(id: string) {
+      this.editingContactId = id;
+      this.dialogVisible = true;
     },
     async onContactSaved() {
-      this.showForm = false;
+      this.dialogVisible = false;
       await this.fetchContacts();
       alert("Contato salvo com sucesso!");
     },
