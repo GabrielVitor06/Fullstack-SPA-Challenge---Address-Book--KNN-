@@ -5,3 +5,5 @@ asyncpg
 pydantic>=2.0
 httpx
 psycopg[binary]
+greenlet
+email-validator

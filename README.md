@@ -19,7 +19,7 @@ Navegue para a pasta backend: cd backend
 
 Instale dependências:
 
-pip install -r backend/requirements.txt
+pip install -r requirements.txt
 
 Rode as migrations/crie as tabelas (caso tenha script):
 
