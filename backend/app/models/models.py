@@ -16,3 +16,13 @@ class Contact(Base):
     bairro: Mapped[str] = mapped_column(String(100), nullable=False)
     cidade: Mapped[str] = mapped_column(String(100), nullable=False)
     estado: Mapped[str] = mapped_column(String(2), nullable=False)
+
+    @property
+    def address(self):
+        return {
+            "cep": self.cep,
+            "logradouro": self.logradouro,
+            "bairro": self.bairro,
+            "cidade": self.cidade,
+            "estado": self.estado,
+        }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card class="py-1 px-6 rounded-lg elevation-1">
+    <v-card class="py-1 px-4 rounded-lg">
       <v-row align="center" justify="space-between">
         <v-col>
           <v-card-title>{{ contact?.name }}</v-card-title>
@@ -18,7 +18,6 @@
           <v-btn text color="blue" @click="$emit('edit', contact.id)">
             Editar
           </v-btn>
-
           <v-btn text color="red" @click="dialog = true">Excluir</v-btn>
         </v-col>
       </v-row>

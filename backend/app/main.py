@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.models import models
 from app.core import database
-from app.api.v1 import contacts  # importa o módulo que tem router
+from app.api.v1 import contacts 
 
 app = FastAPI()
 
@@ -23,4 +23,4 @@ async def startup():
     async with database.engine.begin() as conn:
         await conn.run_sync(models.Base.metadata.create_all)
 
-app.include_router(contacts.router, prefix="/contacts", tags=["Contacts"])
+app.include_router(contacts.router, prefix="/api/v1", tags=["Contacts"])

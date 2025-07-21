@@ -1,46 +1,48 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Icontact } from "@/Interfaces/Contact";
 
-export function createEmptyContact(): Icontact {
-  return {
-    name: "",
-    email: "",
-    phone: "",
+const defaultContact: Icontact = {
+  id: undefined,
+  name: "",
+  email: "",
+  phone: "",
+  cep: "",
+  address: {
     cep: "",
-    address: {
-      cep: "",
-      logradouro: "",
-      bairro: "",
-      cidade: "",
-      estado: "",
-    },
-  };
+    logradouro: "",
+    bairro: "",
+    cidade: "",
+    estado: "",
+  },
+};
+
+function deepMerge<T>(target: T, source: Partial<T>): T {
+  for (const key in source) {
+    const sourceValue = source[key];
+    const targetValue = target[key];
+
+    if (
+      sourceValue &&
+      typeof sourceValue === "object" &&
+      !Array.isArray(sourceValue)
+    ) {
+      if (targetValue && typeof targetValue === "object") {
+        target[key] = deepMerge(targetValue, sourceValue as Partial<any>);
+      } else {
+        target[key] = sourceValue as any;
+      }
+    } else if (sourceValue !== undefined) {
+      target[key] = sourceValue as any;
+    }
+  }
+
+  return target;
 }
 
-export function formatContact(data: Icontact): Icontact {
-  return {
-    id: data.id,
-    name: data.name || "",
-    email: data.email || "",
-    phone: data.phone || "",
-    cep: data.cep || "",
-    address: formatAddress(data.address, data.cep),
-  };
+export function createEmptyContact(): Icontact {
+  return JSON.parse(JSON.stringify(defaultContact));
 }
 
-export function formatAddress(
-  addressData: {
-    logradouro?: string;
-    bairro?: string;
-    cidade?: string;
-    estado?: string;
-  } = {},
-  cep?: string
-): Icontact["address"] {
-  return {
-    logradouro: addressData?.logradouro || "",
-    bairro: addressData?.bairro || "",
-    cidade: addressData?.cidade || "",
-    estado: addressData?.estado || "",
-    cep: cep || "",
-  };
+export function formatContact(data: Partial<Icontact>): Icontact {
+  return deepMerge(createEmptyContact(), data);
 }

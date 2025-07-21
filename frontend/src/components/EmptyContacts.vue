@@ -1,15 +1,15 @@
 <template>
   <div class="empty-contacts">
-    <font-awesome-icon :icon="['fas', 'user-slash']" size="4x" />
+    <font-awesome-icon class="icon" :icon="['fas', 'user-slash']" size="4x" />
 
     <p>Nenhum contato encontrado.</p>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import Vue from "vue";
 
-export default defineComponent({
+export default Vue.extend({
   name: "EmptyContacts",
 });
 </script>

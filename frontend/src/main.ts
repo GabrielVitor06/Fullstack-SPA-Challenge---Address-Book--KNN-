@@ -6,10 +6,10 @@ import vuetify from "./plugins/vuetify";
 import axios from "axios";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faUserSlash } from "@fortawesome/free-solid-svg-icons";
+import { faUserSlash, faTimes } from "@fortawesome/free-solid-svg-icons";
 import VueMask from "v-mask";
 
-library.add(faUserSlash);
+library.add(faUserSlash, faTimes);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

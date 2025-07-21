@@ -4,10 +4,10 @@ export interface Icontact {
   email: string;
   phone: string;
   cep: string;
-  address: IContactAdress;
+  address: IcontactAdress;
 }
 
-export interface IContactAdress {
+export interface IcontactAdress {
   cep: string;
   logradouro: string;
   bairro: string;
