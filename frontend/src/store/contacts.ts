@@ -1,13 +1,13 @@
 import { Module } from "vuex";
 import axios from "axios";
-import { contact } from "@/Interfaces/Contact";
+import { Icontact } from "@/Interfaces/Contact";
 
 const api = axios.create({
   baseURL: "http://127.0.0.1:8000/contacts",
 });
 
 interface State {
-  contacts: contact[];
+  contacts: Icontact[];
 }
 
 const contacts: Module<State, unknown> = {
@@ -29,10 +29,10 @@ const contacts: Module<State, unknown> = {
       const { data } = await api.get(`/contacts/${id}`);
       return data;
     },
-    async createContact(_, contact: contact) {
+    async createContact(_, contact: Icontact) {
       await api.post("/contacts", contact);
     },
-    async updateContact(_, contact: contact) {
+    async updateContact(_, contact: Icontact) {
       await api.put(`/contacts/${contact.id}`, contact);
     },
     async deleteContact({ dispatch }, id: number) {

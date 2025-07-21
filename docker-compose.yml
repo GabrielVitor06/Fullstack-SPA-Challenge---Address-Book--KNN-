@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  frontend:
+    build: ./frontend
+    container_name: knn-frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+
+  backend:
+    build: ./backend
+    container_name: knn-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres.xplpbktjaomsjvvygjwv:523079GJ@aws-0-sa-east-1.pooler.supabase.com:5432/postgres
+    volumes:
+      - ./backend:/app

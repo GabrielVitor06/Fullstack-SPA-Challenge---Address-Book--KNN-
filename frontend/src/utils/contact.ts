@@ -1,6 +1,6 @@
-import { contact } from "@/Interfaces/Contact";
+import { Icontact } from "@/Interfaces/Contact";
 
-export function createEmptyContact(): contact {
+export function createEmptyContact(): Icontact {
   return {
     name: "",
     email: "",
@@ -16,7 +16,7 @@ export function createEmptyContact(): contact {
   };
 }
 
-export function formatContact(data: contact): contact {
+export function formatContact(data: Icontact): Icontact {
   return {
     id: data.id,
     name: data.name || "",
@@ -28,9 +28,14 @@ export function formatContact(data: contact): contact {
 }
 
 export function formatAddress(
-  addressData: any,
+  addressData: {
+    logradouro?: string;
+    bairro?: string;
+    cidade?: string;
+    estado?: string;
+  } = {},
   cep?: string
-): contact["address"] {
+): Icontact["address"] {
   return {
     logradouro: addressData?.logradouro || "",
     bairro: addressData?.bairro || "",

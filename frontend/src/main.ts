@@ -7,6 +7,7 @@ import axios from "axios";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faUserSlash } from "@fortawesome/free-solid-svg-icons";
+import VueMask from "v-mask";
 
 library.add(faUserSlash);
 
@@ -15,6 +16,8 @@ Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.config.productionTip = false;
 
 axios.defaults.baseURL = "http://localhost:8000";
+
+Vue.use(VueMask);
 
 new Vue({
   router,

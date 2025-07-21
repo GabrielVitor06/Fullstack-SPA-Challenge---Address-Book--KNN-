@@ -17,7 +17,7 @@
       <v-col cols="12" v-for="contact in filteredContacts" :key="contact.id">
         <ContactCard
           :contact="contact"
-          @deleted="fetchContacts"
+          @deleted="handleDeleted"
           @edit="openEditContactForm"
         />
       </v-col>
@@ -32,7 +32,20 @@
       :contactId="editingContactId"
       @input="dialogVisible = $event"
       @saved="onContactSaved"
+      @show-snackbar="showSnackbar"
     />
+
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="3000"
+      :color="snackbarColor"
+      top
+      right
+      elevation="2"
+    >
+      {{ snackbarText }}
+      <v-btn color="white" text @click="snackbar = false">Fechar</v-btn>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -41,7 +54,7 @@ import Vue from "vue";
 import ContactCard from "@/components/ContactCard.vue";
 import EmptyContacts from "@/components/EmptyContacts.vue";
 import ContactForm from "@/components/ContactForm.vue";
-import { contact } from "@/Interfaces/Contact";
+import { Icontact } from "@/Interfaces/Contact";
 
 export default Vue.extend({
   components: { ContactCard, EmptyContacts, ContactForm },
@@ -50,14 +63,17 @@ export default Vue.extend({
       search: "",
       dialogVisible: false,
       editingContactId: null as string | null,
+      snackbar: false,
+      snackbarText: "",
+      snackbarColor: "success",
     };
   },
   computed: {
-    contacts(): contact[] {
+    contacts(): Icontact[] {
       return this.$store.getters["contacts/contacts"];
     },
-    filteredContacts(): contact[] {
-      return this.contacts.filter((contact: contact) =>
+    filteredContacts(): Icontact[] {
+      return this.contacts.filter((contact: Icontact) =>
         contact.name.toLowerCase().includes(this.search.toLowerCase())
       );
     },
@@ -70,7 +86,10 @@ export default Vue.extend({
       try {
         await this.$store.dispatch("contacts/fetchContacts");
       } catch (error) {
-        alert("Erro ao carregar contatos");
+        this.showSnackbar({
+          message: "Erro ao carregar contatos",
+          color: "error",
+        });
       }
     },
     openNewContactForm() {
@@ -84,7 +103,22 @@ export default Vue.extend({
     async onContactSaved() {
       this.dialogVisible = false;
       await this.fetchContacts();
-      alert("Contato salvo com sucesso!");
+      this.showSnackbar({
+        message: "Contato salvo com sucesso!",
+        color: "success",
+      });
+    },
+    async handleDeleted(message: string) {
+      await this.fetchContacts();
+      this.showSnackbar({
+        message,
+        color: message.toLowerCase().includes("erro") ? "error" : "success",
+      });
+    },
+    showSnackbar(payload: { message: string; color: string }) {
+      this.snackbarText = payload.message;
+      this.snackbarColor = payload.color;
+      this.snackbar = true;
     },
   },
 });

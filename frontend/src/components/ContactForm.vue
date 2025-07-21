@@ -26,14 +26,16 @@
             label="Telefone"
             :rules="[required]"
             required
+            v-mask="'(##) #####-####'"
           />
           <v-text-field
             v-model="contact.cep"
             label="CEP"
-            maxlength="8"
+            maxlength="9"
             @blur="fetchAddress"
             :rules="[required]"
             required
+            v-mask="'#####-###'"
           />
 
           <v-text-field
@@ -70,7 +72,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { contact } from "@/Interfaces/Contact";
+import { Icontact } from "@/Interfaces/Contact";
 import axios from "axios";
 import {
   createEmptyContact,
@@ -92,7 +94,7 @@ export default Vue.extend({
   data() {
     return {
       isDialogOpen: this.value,
-      contact: createEmptyContact() as contact,
+      contact: createEmptyContact() as Icontact,
       required: (v: string) => !!v || "Campo obrigatório",
       emailRule: (v: string) => /.+@.+\..+/.test(v) || "E-mail inválido",
     };
@@ -138,9 +140,13 @@ export default Vue.extend({
         this.contact = formatContact(data);
       } catch (error) {
         console.error(error);
-        alert("Erro ao buscar contato");
+        this.$emit("show-snackbar", {
+          message: "Erro ao buscar contato",
+          color: "error",
+        });
       }
     },
+
     async fetchAddress() {
       if (this.contact.cep?.length === 8) {
         try {
@@ -149,10 +155,14 @@ export default Vue.extend({
           );
           this.contact.address = formatAddress(data, this.contact.cep);
         } catch {
-          alert("CEP inválido!");
+          this.$emit("show-snackbar", {
+            message: "CEP inválido!",
+            color: "error",
+          });
         }
       }
     },
+
     async handleSubmit() {
       const valid = await (this.$refs.formRef as any).validate();
       if (!valid) return;
@@ -167,8 +177,10 @@ export default Vue.extend({
         this.$emit("saved");
         this.isDialogOpen = false;
       } catch (error) {
-        console.error("Erro ao salvar contato:", error);
-        alert("Erro ao salvar contato.");
+        this.$emit("show-snackbar", {
+          message: "Erro ao salvar contato.",
+          color: "error",
+        });
       }
     },
   },

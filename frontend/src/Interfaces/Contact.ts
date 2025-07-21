@@ -1,14 +1,16 @@
-export interface contact {
+export interface Icontact {
   id?: number;
   name: string;
   email: string;
   phone: string;
   cep: string;
-  address: {
-    cep: string;
-    logradouro: string;
-    bairro: string;
-    cidade: string;
-    estado: string;
-  };
+  address: IContactAdress;
+}
+
+export interface IContactAdress {
+  cep: string;
+  logradouro: string;
+  bairro: string;
+  cidade: string;
+  estado: string;
 }
