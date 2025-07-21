@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: knn-backend
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    rootDir: ./backend
+    plan: free
+    region: oregon
+    envVars:
+      - key: DATABASE_URL
+        value: sua-string-de-conexão-aqui
+
+  - type: web
+    name: knn-frontend
+    env: docker
+    dockerfilePath: ./frontend/Dockerfile
+    rootDir: ./frontend
+    plan: free
+    region: oregon
