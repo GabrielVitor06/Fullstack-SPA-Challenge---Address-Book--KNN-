@@ -1,21 +1,8 @@
-# Fullstack SPA Challenge - Address Book (KNN)
-
-Bem-vindo(a) ao desafio FullStack SPA da KNN!
-
-Este projeto consiste em uma aplicação FullStack Single Page Application (SPA) para cadastro e consulta de contatos, com preenchimento automático de endereço via consulta de CEP.
-
----
-
-## Tecnologias usadas
-
-- **Frontend:** Vue 2 + TypeScript + Vuetify + Vuex + Vue Router
-- **Backend:** FastAPI + SQLAlchemy 2.x + Pydantic v2 + PostgreSQL + Uvicorn
-- **Banco de dados:** PostgreSQL
-- **Extras:** Docker + Docker Compose (opcional)
-
----
-
 ## Como rodar o projeto localmente
+
+RECOMENTADO:
+RODAR: docker-compose up --build na raiz de tudo
+Colocar o .env na raiz com a DATABASE_URL=postgresql+asyncpg://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
 
 ### 1. Clone o repositório
 
@@ -26,7 +13,7 @@ cd Fullstack-SPA-Challenge-Address-Book-KNN
 2. Configure a variável de ambiente do banco de dados
 Crie um arquivo .env na raiz do projeto (ou na pasta backend) com o conteúdo:
 
-DATABASE_URL=postgresql+asyncpg://postgres:523079GJ@db.xplpbktjaomsjvvygjwv.supabase.co:5432/postgres
+DATABASE_URL=postgresql+asyncpg://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
 
 3. Crie e ative seu ambiente virtual Python
 No Linux/macOS:
@@ -98,4 +85,4 @@ Use a documentação Swagger para testar os endpoints.
 
 # postgresql+asyncpg://<usuario>:<senha>@<host>:<porta>/<database>
 
-DATABASE_URL=postgresql+asyncpg://postgres:YOUR_PASSWORD@YOUR_HOST:5432/postgres
+DATABASE_URL=postgresql+asyncpg://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
