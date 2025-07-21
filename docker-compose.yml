@@ -17,6 +17,6 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=postgresql+asyncpg://postgres.xplpbktjaomsjvvygjwv:523079GJ@aws-0-sa-east-1.pooler.supabase.com:5432/postgres
+      - DATABASE_URL=${DATABASE_URL}
     volumes:
       - ./backend:/app

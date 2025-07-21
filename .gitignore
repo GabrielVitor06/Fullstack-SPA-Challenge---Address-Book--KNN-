@@ -1,0 +1,35 @@
+# Node / Vue (frontend)
+node_modules/
+dist/
+.env
+npm-debug.log*
+yarn-error.log*
+yarn-debug.log*
+
+# Python (backend)
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+.env
+*.sqlite3
+
+# Docker
+docker-compose.override.yml
+**/Dockerfile.*
+**/*.dockerignore
+
+
+# IDEs e editores
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+logs/
+*.log
+
+# Sistema
+.DS_Store
+Thumbs.db
