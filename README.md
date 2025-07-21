@@ -2,7 +2,7 @@
 
 RECOMENDADO:
 RODAR: docker-compose up --build na raiz de tudo
-Colocar o .env na raiz com a DATABASE_URL=postgresql+asyncpg://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
+Colocar o .env na raiz de tudo com a DATABASE_URL=postgresql+asyncpg://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
 
 ### 1. Clone o repositório
 
