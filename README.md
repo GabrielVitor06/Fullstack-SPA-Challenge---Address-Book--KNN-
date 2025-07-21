@@ -1,6 +1,6 @@
 ## Como rodar o projeto localmente
 
-RECOMENTADO:
+RECOMENDADO:
 RODAR: docker-compose up --build na raiz de tudo
 Colocar o .env na raiz com a DATABASE_URL=postgresql+asyncpg://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
 
@@ -11,7 +11,7 @@ git clone <url-do-repositorio>
 cd Fullstack-SPA-Challenge-Address-Book-KNN
 
 2. Configure a variável de ambiente do banco de dados
-Crie um arquivo .env na raiz do projeto (ou na pasta backend) com o conteúdo:
+Crie um arquivo .env na raiz do projeto com o conteúdo:
 
 DATABASE_URL=postgresql+asyncpg://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
 
@@ -37,7 +37,13 @@ python backend/migrate.py
 # Inicie o backend
 
 uvicorn app.main:app --reload
-pytest tests
+
+# Inicie o teste
+
+python3 -m venv .venv
+source .venv/bin/activate
+pip install pytest httpx pytest-asyncio
+pytest -v
 
 O backend estará disponível em http://127.0.0.1:8000
 
@@ -82,6 +88,8 @@ Use a documentação Swagger para testar os endpoints.
 # .env.example
 
 # URL do banco PostgreSQL, use o formato:
+
+Usei Supabase
 
 # postgresql+asyncpg://<usuario>:<senha>@<host>:<porta>/<database>
 
