@@ -8,7 +8,7 @@ services:
     region: oregon
     envVars:
       - key: DATABASE_URL
-        value: sua-string-de-conexao-aqui
+        sync: false
 
   - type: web
     name: knn-frontend
