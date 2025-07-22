@@ -57,6 +57,7 @@ O backend estará disponível em http://127.0.0.1:8000
 
 cd frontend
 npm install
+VUE_APP_API_BASE_URL=http://127.0.0.1:8000/api/v1 em um .env na raiz do frontend
 
 # ou
 
