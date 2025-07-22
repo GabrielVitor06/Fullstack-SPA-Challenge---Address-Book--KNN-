@@ -3,6 +3,7 @@
 RECOMENDADO:
 RODAR: docker-compose up --build na raiz de tudo
 Colocar o .env na raiz de tudo com a DATABASE_URL=postgresql+asyncpg://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
+Adicione isso VUE_APP_API_BASE_URL=http://127.0.0.1:8000/api/v1 em um .env na raiz do frontend
 
 ### 1. Clone o repositório
 
