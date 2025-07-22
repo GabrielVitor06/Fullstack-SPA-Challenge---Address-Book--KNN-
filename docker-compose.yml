@@ -15,6 +15,24 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=${DATABASE_URL}
+      - DATABASE_URL=${DATABASE_URL} #DATABASE_URL=postgresql://user:password@db:5432/mydatabase
+    depends_on:
     volumes:
       - ./backend:/app
+#   db:
+#     image: postgres:15
+#     container_name: knn-db
+#     environment:
+#       POSTGRES_USER: user
+#       POSTGRES_PASSWORD: password
+#       POSTGRES_DB: mydatabase
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - pgdata:/var/lib/postgresql/data
+
+# volumes:
+#   pgdata:
+
+# Deixei comentado o serviço de banco de dados, pois não está sendo utilizado no momento.
+# Se precisar, descomente e configure conforme necessário.
