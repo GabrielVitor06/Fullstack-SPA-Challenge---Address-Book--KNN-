@@ -47,7 +47,8 @@ export default Vue.extend({
       return this.$store.getters["contacts/contacts"];
     },
     filteredContacts(): Icontact[] {
-      return this.contacts.filter(
+      const contacts = Array.isArray(this.contacts) ? this.contacts : [];
+      return contacts.filter(
         (contact: Icontact) =>
           contact.name &&
           contact.name.toLowerCase().includes(this.search.toLowerCase())
