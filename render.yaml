@@ -17,3 +17,6 @@ services:
     rootDir: ./frontend
     plan: free
     region: oregon
+    envVars:
+      - key: VUE_APP_API_BASE_URL
+        value: https://knn-backend.onrender.com/api/v1/contacts
