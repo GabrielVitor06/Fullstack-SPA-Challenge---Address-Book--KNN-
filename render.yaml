@@ -2,7 +2,7 @@ services:
   - type: web
     name: knn-backend
     env: docker
-    dockerfilePath: ./backend/Dockerfile
+    dockerfilePath: Dockerfile
     rootDir: ./backend
     plan: free
     region: oregon
@@ -13,7 +13,7 @@ services:
   - type: web
     name: knn-frontend
     env: docker
-    dockerfilePath: ./frontend/Dockerfile
+    dockerfilePath: Dockerfile
     rootDir: ./frontend
     plan: free
     region: oregon
