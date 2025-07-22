@@ -12,4 +12,7 @@ RUN npm run build
 
 RUN npm install -g serve
 
-CMD ["serve", "-s", "dist", "-l", "8080"]
+ENV HOST 0.0.0.0
+EXPOSE 8080
+
+CMD ["serve", "-s", "dist", "-l", "8080", "-n"]
