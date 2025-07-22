@@ -8,6 +8,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:8080",
+    "https://knn-frontend.onrender.com",
 ]
 
 app.add_middleware(
