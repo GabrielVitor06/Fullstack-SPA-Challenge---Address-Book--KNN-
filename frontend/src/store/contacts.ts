@@ -22,40 +22,40 @@ const contacts: Module<ContactsState, unknown> = {
   },
   actions: {
     async fetchContacts({ commit }: ActionContext<ContactsState, unknown>) {
-      const { data } = await api.get("/contacts");
+      const { data } = await api.get("/api/v1/contacts");
       commit("setContacts", data);
     },
     async fetchContact(
       _: ActionContext<ContactsState, unknown>,
       id: number
     ): Promise<Icontact> {
-      const { data } = await api.get(`/contacts/${id}`);
+      const { data } = await api.get(`/api/v1/contacts/${id}`);
       return data;
     },
     async createContact(
       _: ActionContext<ContactsState, unknown>,
       contact: Icontact
     ) {
-      await api.post("/contacts", contact);
+      await api.post("/api/v1/contacts", contact);
     },
     async updateContact(
       _: ActionContext<ContactsState, unknown>,
       contact: Icontact
     ) {
-      await api.put(`/contacts/${contact.id}`, contact);
+      await api.put(`/api/v1/contacts/${contact.id}`, contact);
     },
     async deleteContact(
       { dispatch }: ActionContext<ContactsState, unknown>,
       id: number
     ) {
-      await api.delete(`/contacts/${id}`);
+      await api.delete(`/api/v1/contacts/${id}`);
       dispatch("fetchContacts");
     },
     async fetchAddressByCep(
       _: ActionContext<ContactsState, unknown>,
       cep: string
     ) {
-      const { data } = await api.get(`/cep/${cep}`);
+      const { data } = await api.get(`/api/v1/cep/${cep}`);
       return data;
     },
   },
